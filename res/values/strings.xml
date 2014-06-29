@@ -4,5 +4,6 @@
     <string name="app_name">mmdb_project</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_manager">Manager Control</string>
 
 </resources>
