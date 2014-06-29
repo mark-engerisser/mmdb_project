@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/action_adddriver"
+          android:icon="@drawable/ic_input_add"
+          android:title="Fahrer hinzufügen"
+          android:showAsAction="ifRoom"  />
+</menu>

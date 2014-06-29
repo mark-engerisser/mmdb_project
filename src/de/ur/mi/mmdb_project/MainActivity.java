@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void initUI() {
-		Button ManagerButton = (Button)findViewById(R.id.ManagerButton);
+		Button ManagerButton = (Button)findViewById(R.id.manager_edit_drivers);
 		Button DriverButton = (Button)findViewById(R.id.DriverButton);
 		
 		ManagerButton.setOnClickListener(new OnClickListener() {

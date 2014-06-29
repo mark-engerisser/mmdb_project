@@ -24,7 +24,11 @@
         </activity>
         <activity
             android:name="de.ur.mi.mmdb_project.ManagerActivity"
-            android:label="@string/title_activity_manager" >
+            android:label="Manager Übersicht" >
+        </activity>
+        <activity
+            android:name="de.ur.mi.mmdb_project.ManageDriversActivity"
+            android:label="Fahrer editieren">
         </activity>
     </application>
 
