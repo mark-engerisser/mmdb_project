@@ -30,6 +30,14 @@
             android:name="de.ur.mi.mmdb_project.ManageDriversActivity"
             android:label="Fahrer editieren">
         </activity>
+        <activity 
+            android:name="de.ur.mi.mmdb_project.ManageTasksActivity"
+            android:label="Aufträge editieren">
+        </activity>
+        <activity 
+            android:name="de.ur.mi.mmdb_project.DriverActivity"
+            android:label="Fahrer Übersicht">
+        </activity>
     </application>
 
 </manifest>

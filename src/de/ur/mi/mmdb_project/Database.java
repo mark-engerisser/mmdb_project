@@ -57,6 +57,16 @@ public class Database {
 		m_Db.insert(TABLE_DRIVER, null, content);
 	}
 	
+	public void addTask(Task task) {
+		ContentValues content = new ContentValues();
+		content.put(T_SRC_ADD, task.m_Src);
+		content.put(T_DEST_ADD, task.m_Dest);
+		content.put(T_DRIVER, 0);
+		content.put(T_STATUS, task.m_Status);
+		
+		m_Db.insert(TABLE_TASKS, null, content);
+	}
+	
 	public ArrayList<Driver> getAllDrivers() {
 		ArrayList<Driver> drivers = new ArrayList<Driver>();
 		
@@ -70,6 +80,115 @@ public class Database {
 		}
 		
 		return drivers;
+	}
+	
+	public ArrayList<Task> getAllTasks() {
+		ArrayList<Task> tasks = new ArrayList<Task>();
+		
+		Cursor cursor = m_Db.query(TABLE_TASKS, null, null, null, null, null, null);
+		
+		if (cursor.moveToFirst()) {
+			do {
+				Task task = new Task(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+				tasks.add(task);
+			} while (cursor.moveToNext());
+		}
+		
+		return tasks;
+	}
+	
+	public Driver getDriverForId(int id) {
+		
+		String condition = D_PERS_ID + "=?";
+		
+		Cursor cursor = m_Db.query(TABLE_DRIVER, null, condition, new String[] {String.valueOf(id)}, null, null, null);
+		
+		if (cursor.moveToFirst()) {
+			Driver driver = new Driver(cursor.getInt(0), cursor.getString(1), cursor.getInt(2));
+			return driver;
+		}
+		
+		return null;
+	}
+	
+	public Task getTaskForDriverId(int id) {
+		
+		String condition = T_DRIVER + "=?";
+		
+		Cursor cursor = m_Db.query(TABLE_TASKS, null, condition, new String[] {String.valueOf(id)}, null, null, null);
+		
+		if (cursor.moveToFirst()) {
+			Task task = new Task(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+			return task;
+		}
+		return null;
+	}
+	
+	public Task getBestTaskForAddress(int addressId) {
+		Address driverPosition = getAddressForId(addressId);
+		
+		String condition = T_STATUS + "=0";
+		
+		Cursor cursor = m_Db.query(TABLE_TASKS, null, condition, null, null, null, null);
+		
+		Task bestTask = null;
+		int bestScore = 999999999;
+		
+		if (cursor.moveToFirst()) {
+			do {
+				Task task = new Task(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+				Address task_src = getAddressForId(task.m_Src);
+				
+				int diffAvenue = Math.abs(task_src.m_Avenue - driverPosition.m_Avenue);
+				int diffStreet = Math.abs(task_src.m_Street - driverPosition.m_Street);
+				int score = diffAvenue + diffStreet;
+				
+				if (score <= bestScore) {
+					bestScore = score;
+					bestTask = task;
+				}
+			} while (cursor.moveToNext());
+		}
+		return bestTask;
+	}
+	
+	public int getIdForAdress(int avenue, int street) {
+		String condition = P_AVENUE + "=? AND " + P_STREET + "=?";
+		
+		Cursor cursor = m_Db.query(TABLE_POSITIONS, null, condition, new String[] {String.valueOf(avenue), String.valueOf(street)}, null, null, null);
+		
+		if (cursor.moveToFirst()) {
+			return cursor.getInt(0);
+		} else {
+			ContentValues content = new ContentValues();
+			content.put(P_AVENUE, avenue);
+			content.put(P_STREET, street);
+			return (int) m_Db.insert(TABLE_POSITIONS, null, content);
+		}
+	}
+	
+	public Address getAddressForId(int id) {
+		String condition = P_ID + "=?";
+		
+		Cursor cursor = m_Db.query(TABLE_POSITIONS, null, condition, new String[] {String.valueOf(id)}, null, null, null);
+		
+		if (cursor.moveToFirst()) {
+			Address address = new Address(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
+			return address;
+		}
+		return null;
+	}
+	
+	public void editDriver(Driver driver) {
+		
+		String condition = D_PERS_ID + "=?";
+		
+		ContentValues values = new ContentValues();
+		values.put(D_PERS_ID, driver.m_Id);
+		values.put(D_NAME, driver.m_Name);
+		values.put(D_CUR_POS, driver.m_CurPos);
+		
+		m_Db.update(TABLE_DRIVER, values, condition, new String[] {String.valueOf(driver.m_Id)});
 	}
 	
 	class DbOpenHelper extends SQLiteOpenHelper {

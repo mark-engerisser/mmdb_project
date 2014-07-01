@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/addtask_src_avenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:ems="10"
+        android:hint="Avenue"
+        android:inputType="numberSigned" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/addtask_src_street"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_toRightOf="@+id/addtask_src_avenue"
+        android:ems="10"
+        android:hint="Street"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/addtask_dest_avenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_toLeftOf="@+id/addtask_src_street"
+        android:ems="10"
+        android:hint="Avenue"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/addtask_dest_street"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/addtask_dest_avenue"
+        android:ems="10"
+        android:hint="Street"
+        android:inputType="numberSigned" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:text="Abholort:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/addtask_src_avenue"
+        android:text="Zielort:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tasklist_address_src"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/addtask_dest_avenue"
+        android:layout_marginTop="17dp"
+        android:text="Status:" />
+
+    <RadioGroup
+        android1:id="@+id/addtaskdialog_status"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/tasklist_address_src" >
+
+        <RadioButton
+            android1:id="@+id/radio0"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:checked="true"
+            android1:text="Ausstehend" />
+
+        <RadioButton
+            android1:id="@+id/radio1"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="Unterwegs" />
+
+        <RadioButton
+            android1:id="@+id/radio2"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="Abgeliefert" />
+    </RadioGroup>
+
+</RelativeLayout>

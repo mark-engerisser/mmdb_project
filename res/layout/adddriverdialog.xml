@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fahrername:" />
+
     <EditText
         android:id="@+id/adddriverdialogname"
         android:layout_width="match_parent"
@@ -15,11 +21,38 @@
         <requestFocus />
     </EditText>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aktuelle Position" />
+
+    <TextView
+        android:id="@+id/tasklist_address_src"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avenue:" />
+
     <EditText
-        android:id="@+id/adddriverdialogpos"
+        android:id="@+id/adddriverdialogavenue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Fahrerposition" />
+        android:inputType="numberSigned"
+        android:hint="Avenue" />
+
+    <TextView
+        android:id="@+id/tasklist_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Straße:" />
+
+    <EditText
+        android:id="@+id/adddriverdialogstreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:hint="Straße" />
 
 </LinearLayout>

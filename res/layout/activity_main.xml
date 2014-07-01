@@ -7,17 +7,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <TextView
-        android:id="@+id/drivers_item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please select your job..." />
-
     <Button
         android:id="@+id/manager_edit_drivers"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_below="@+id/drivers_item_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
         android:text="Manager" />

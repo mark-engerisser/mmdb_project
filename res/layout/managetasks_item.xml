@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Name:"
+        android:text="Abholadresse:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -19,44 +19,63 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Aktuelle Position:"
+        android:text="Zieladresse:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/drivers_item_pos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView2"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/drivers_item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/drivers_item_pos"
-        android:layout_alignBottom="@+id/drivers_item_pos"
-        android:layout_alignParentLeft="true"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/tasklist_address_src"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/drivers_item_name"
-        android:text="Personalnummer:"
+        android:layout_below="@+id/textView1"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tasklist_dest_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tasklist_address_src"
+        android:layout_alignBottom="@+id/tasklist_address_src"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tasklist_address_src"
+        android:text="Status:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/drivers_item_id"
+        android:id="@+id/tasklist_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/drivers_item_name"
-        android:layout_toRightOf="@+id/tasklist_address_src"
-        android:text="Small Text"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/driver_curtask_src"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tasklist_dest_address"
+        android:text="Fahrer:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tasklist_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tasklist_status"
+        android:layout_alignBottom="@+id/tasklist_status"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

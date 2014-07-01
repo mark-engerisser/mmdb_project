@@ -35,7 +35,8 @@ public class ManagerActivity extends ActionBarActivity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				Intent intent = new Intent(ManagerActivity.this, ManageTasksActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

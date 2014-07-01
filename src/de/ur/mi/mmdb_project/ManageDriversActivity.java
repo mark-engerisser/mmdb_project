@@ -2,31 +2,33 @@ package de.ur.mi.mmdb_project;
 
 import java.util.ArrayList;
 
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 
-public class ManageDriversActivity extends ActionBarActivity {
+public class ManageDriversActivity extends Activity {
 
-	Database m_Db;
+	private Database m_Db;
 	
-	ListView m_ListView;
-	DriversListAdapter m_ListAdapter;
+	private ListView m_ListView;
+	private DriversListAdapter m_ListAdapter;
 	
-	ArrayList<Driver> m_Drivers;
+	private ArrayList<Driver> m_Drivers;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,14 @@ public class ManageDriversActivity extends ActionBarActivity {
 		m_ListView = (ListView)findViewById(R.id.managedrivers_list);
 		m_ListAdapter = new DriversListAdapter(this);
 		m_ListView.setAdapter(m_ListAdapter);
+		m_ListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				editDriver((int) arg3);
+			}
+		});
 		
 		m_Db.openDb();
 		retriveDbData();
@@ -87,9 +97,15 @@ public class ManageDriversActivity extends ActionBarActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				m_Db.openDb();
 				
-				TextView name = (TextView)dialogView.findViewById(R.id.adddriverdialogname);
-				TextView pos = (TextView)dialogView.findViewById(R.id.adddriverdialogpos);
-				m_Db.addDriver(name.getText().toString(), 0);
+				EditText name = (EditText)dialogView.findViewById(R.id.adddriverdialogname);
+				EditText avenue = (EditText)dialogView.findViewById(R.id.adddriverdialogavenue);
+				EditText street = (EditText)dialogView.findViewById(R.id.adddriverdialogstreet);
+				
+				int id = m_Db.getIdForAdress(
+						Integer.parseInt(avenue.getText().toString()),
+						Integer.parseInt(street.getText().toString()));
+				
+				m_Db.addDriver(name.getText().toString(), id);
 				
 				retriveDbData();
 				
@@ -98,6 +114,57 @@ public class ManageDriversActivity extends ActionBarActivity {
 				dialog.dismiss();
 			}
 			
+		});
+		builder.create().show();
+	}
+	
+	private void editDriver(final int id) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Fahrer editieren");
+		
+		final View dialogView = getLayoutInflater().inflate(R.layout.adddriverdialog, null);
+		builder.setView(dialogView);
+		
+		m_Db.openDb();
+		Driver driver = m_Db.getDriverForId(id);
+		Address address = m_Db.getAddressForId(driver.m_Id);
+		m_Db.closeDb();
+		
+		EditText drivername = (EditText)dialogView.findViewById(R.id.adddriverdialogname);
+		EditText driverposavenue = (EditText)dialogView.findViewById(R.id.adddriverdialogavenue);
+		EditText driverposstreet = (EditText)dialogView.findViewById(R.id.adddriverdialogstreet);
+		
+		drivername.setText(driver.m_Name);
+		driverposavenue.setText(String.valueOf(address.m_Avenue));
+		driverposstreet.setText(String.valueOf(address.m_Street));
+		
+		builder.setNegativeButton("Abbrechen", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				arg0.dismiss();
+			}		
+		});
+		builder.setPositiveButton("Editieren", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				m_Db.openDb();
+				
+				EditText name = (EditText)dialogView.findViewById(R.id.adddriverdialogname);
+				EditText avenue = (EditText)dialogView.findViewById(R.id.adddriverdialogavenue);
+				EditText street = (EditText)dialogView.findViewById(R.id.adddriverdialogstreet);
+				
+				int posid = m_Db.getIdForAdress(Integer.parseInt(avenue.getText().toString()), Integer.parseInt(street.getText().toString()));
+				
+				Driver driver = new Driver(id, name.getText().toString(), posid);
+				
+				m_Db.editDriver(driver);
+				
+				retriveDbData();
+				
+				m_Db.closeDb();
+				m_ListAdapter.notifyDataSetChanged();
+				dialog.dismiss();
+			}
 		});
 		builder.create().show();
 	}
@@ -139,8 +206,13 @@ public class ManageDriversActivity extends ActionBarActivity {
 			TextView id = (TextView)convertView.findViewById(R.id.drivers_item_id);
 			TextView position = (TextView)convertView.findViewById(R.id.drivers_item_pos);
 			
+			m_Db.openDb();
+			Address address = m_Db.getAddressForId(driver.m_CurPos);
+			m_Db.closeDb();
+			
 			name.setText(driver.m_Name);
 			id.setText(String.valueOf(driver.m_Id));
+			position.setText(address.toAddressString());
 			
 			return convertView;
 		}
